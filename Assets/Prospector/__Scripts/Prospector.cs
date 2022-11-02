@@ -275,6 +275,6 @@ public class Prospector : MonoBehaviour {
 			print("Game Over, You lost");
         }
 
-		SceneManager.LoadScene("_Prospector_Scene_0");
+		SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }
