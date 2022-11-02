@@ -16,6 +16,7 @@ public class Prospector : MonoBehaviour {
 	[Header("Set Dynamically")]
 	public Deck					deck;
 	public Layout layout;
+	public List<CardProspector> drawPile;
 
 	void Awake(){
 		S = this;
@@ -35,6 +36,19 @@ public class Prospector : MonoBehaviour {
 
 		layout = GetComponent<Layout>();
 		layout.ReadLayout(layoutXML.text);
+		drawPile = ConverListCardsToListCardProspectors(deck.cards);
 	}
 
+	List<CardProspector> ConverListCardsToListCardProspectors(List<Card> lCD)
+	{
+		List<CardProspector> lCP = new List<CardProspector>();
+		CardProspector tCP;
+		foreach (Card tCD in lCD)
+		{
+			tCP = tCD as CardProspector;
+			lCP.Add(tCP);
+		}
+
+		return lCP;
+	}
 }
