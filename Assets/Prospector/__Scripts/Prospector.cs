@@ -44,7 +44,7 @@ public class Prospector : MonoBehaviour {
 		layout = GetComponent<Layout>();
 		layout.ReadLayout(layoutXML.text);
 		drawPile = ConverListCardsToListCardProspectors(deck.cards);
-		LayoutGame():
+		LayoutGame();
 	}
 
 	List<CardProspector> ConverListCardsToListCardProspectors(List<Card> lCD)
