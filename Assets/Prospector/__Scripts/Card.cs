@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public class Card : MonoBehaviour {
 
+	public bool isGoldCard = false;
 	public string suit;
 	public int rank;
 	public Color color = Color.black;

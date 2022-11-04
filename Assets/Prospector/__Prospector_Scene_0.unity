@@ -631,6 +631,7 @@ MonoBehaviour:
   gameOverText: {fileID: 0}
   roundResultText: {fileID: 0}
   highScoreText: {fileID: 0}
+  goldCardChance: 0.3
   deck: {fileID: 0}
   layout: {fileID: 0}
   drawPile: []

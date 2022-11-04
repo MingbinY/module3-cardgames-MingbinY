@@ -23,6 +23,9 @@ public class Prospector : MonoBehaviour {
 	public float reloadDelay = 2f;// 2 sec delay between rounds
 	public Text gameOverText, roundResultText, highScoreText;
 
+	[Range(0,1)]
+	public float goldCardChance;
+
 	[Header("Set Dynamically")]
 	public Deck deck;
 	public Layout layout;
@@ -141,6 +144,7 @@ public class Prospector : MonoBehaviour {
         }
 		MoveToTarget(Draw());
 		UpdateDrawPile();
+		GenerateGoldCard();
 	}
 
 	CardProspector FindCardByLayoutID(int layoutID)
@@ -252,8 +256,16 @@ public class Prospector : MonoBehaviour {
 				tableau.Remove(cd);
 				MoveToTarget(cd);
 				SetTableauFaces();
-				ScoreManager.EVENT(eScoreEvent.mine);
-				FloatingScoreHandler(eScoreEvent.mine);
+				if (cd.isGoldCard)
+                {
+					ScoreManager.EVENT(eScoreEvent.mineGold);
+					FloatingScoreHandler(eScoreEvent.mineGold);
+                }
+                else
+                {
+					ScoreManager.EVENT(eScoreEvent.mine);
+					FloatingScoreHandler(eScoreEvent.mine);
+				}
 				break;
         }
 		CheckForGameOver();
@@ -394,7 +406,45 @@ public class Prospector : MonoBehaviour {
 					fs.reportFinishTo = fsRun.gameObject;
 				}
 				break;
+
+			case eScoreEvent.mineGold:
+				FloatingScore dfs;
+				Vector2 p1 = Input.mousePosition;
+				p1.x /= Screen.width;
+				p1.y /= Screen.height;
+				fsPts = new List<Vector2>();
+				fsPts.Add(p1);
+				fsPts.Add(fsPosMid);
+				fsPts.Add(fsPosRun);
+				dfs = Scoreboard.S.CreateFloatingScore(ScoreManager.CHAIN * 2, fsPts);
+				dfs.fontSizes = new List<float>(new float[] { 4, 50, 28 });
+				if (fsRun == null)
+				{
+					fsRun = dfs;
+					fsRun.reportFinishTo = null;
+				}
+				else
+				{
+					dfs.reportFinishTo = fsRun.gameObject;
+				}
+				break;
+
 		}
+	}
+
+	void GenerateGoldCard()
+    {
+		foreach (CardProspector cp in tableau)
+        {
+			float randomValue = Random.value;
+			if (randomValue <= goldCardChance)
+            {
+				cp.isGoldCard = true;
+				cp.back.GetComponent<SpriteRenderer>().sprite = deck.cardBackGold;
+				cp.GetComponent<SpriteRenderer>().sprite = deck.cardFrontGold;
+            }
+        }
+
 	}
 
 }
