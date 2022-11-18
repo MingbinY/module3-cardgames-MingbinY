@@ -18,14 +18,15 @@ public class GolfScoreManager : MonoBehaviour
     public int currentScore;
 
     public static int currentRound = 0;
-    private void Awake()
+    private void Start()
     {
         if (S == null)
             S = this;
 
-        RoundManager._instance.roundCount++;
         if (RoundManager._instance.roundCount == 0)
             RoundManager._instance.roundCount = 1;
+        else
+            RoundManager._instance.roundCount++;
         highScore.text = RoundManager._instance.LowestScoreRecord.ToString();
         if (RoundManager._instance.roundCount == 4)
         {
