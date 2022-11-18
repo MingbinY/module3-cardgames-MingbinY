@@ -9,7 +9,8 @@ public enum eScoreEvent
     mineGold,
 
     gameWin,
-    gameLoss
+    gameLoss,
+    gameEnd
 }
 // ScoreManager handles all of the scoring
 public class ScoreManager : MonoBehaviour
