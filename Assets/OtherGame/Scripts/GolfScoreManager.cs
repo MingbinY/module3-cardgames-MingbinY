@@ -24,10 +24,12 @@ public class GolfScoreManager : MonoBehaviour
             S = this;
 
         RoundManager._instance.roundCount++;
+        if (RoundManager._instance.roundCount == 0)
+            RoundManager._instance.roundCount = 1;
         highScore.text = RoundManager._instance.LowestScoreRecord.ToString();
         if (RoundManager._instance.roundCount == 4)
         {
-            RoundManager._instance.roundCount = 0;
+            RoundManager._instance.roundCount = 1;
             RecordHighScore();
         }
         scoreText.text = RoundManager._instance.thisHoldSum.ToString();
@@ -40,6 +42,7 @@ public class GolfScoreManager : MonoBehaviour
             RoundManager._instance.LowestScoreRecord = RoundManager._instance.thisHoldSum;
         RoundManager._instance.thisHoldSum = 0;
         highScore.text = RoundManager._instance.LowestScoreRecord.ToString();
+        roundCount.text = RoundManager._instance.roundCount.ToString();
     }
     public static void EVENT(eScoreEvent evt)
     {
