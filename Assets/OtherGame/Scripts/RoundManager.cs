@@ -6,7 +6,7 @@ public class RoundManager : MonoBehaviour
 {
     public static RoundManager _instance;
     public int roundCount = 0;
-    public int LowestScoreRecord;
+    public int LowestScoreRecord = 1000;
     public int thisHoldSum = 0;
     private void Awake()
     {
